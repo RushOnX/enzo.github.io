@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Enzo Deremy</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="index.html" class="logo"><img src="logo.png" alt="Logo ED" class="logo-img"></a>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À Propos</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="messages.html">Messages</a></li>
+                </ul>
+                <button id="toggle-button" onclick="toggleForm()">Connexion/Inscription</button>
+                <img id="profile-pic-small" class="profile-pic-small hidden" src="default-profile.png" alt="Photo de profil" onclick="toggleProfileMenu()">
+                <div id="profile-menu" class="profile-menu">
+                    <button onclick="showProfileSettings()">Personnaliser le profil</button>
+                    <button onclick="logout()">Déconnexion</button>
+                    <button onclick="deleteAccount()">Supprimer le compte</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="chat-section">
+            <h2>Chat en direct</h2>
+            <p>Veuillez noter que tous les messages envoyés ici seront reçus sur Discord. Si vous avez un projet spécifique, merci de le mentionner dans votre message.</p>
+            <div id="chat-window" class="chat-window">
+                <div id="chat-messages" class="chat-messages"></div>
+            </div>
+            <form id="chat-form" onsubmit="return sendChatMessage()">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Écrivez votre message..." required>
+                <button type="submit" class="chat-submit">Envoyer</button>
+            </form>
+        </section>
+    </main>
+
+    <div id="overlay" onclick="toggleForm()">
+        <div id="form-container" onclick="event.stopPropagation()">
+            <div id="login-form">
+                <h2>Se connecter</h2>
+                <form onsubmit="return validateLogin()">
+                    <label for="login-username">Nom d'utilisateur:</label>
+                    <input type="text" id="login-username" required>
+                    
+                    <label for="login-password">Mot de passe:</label>
+                    <div class="password-container">
+                        <input type="password" id="login-password" required>
+                        <img id="login-password-eye" class="eye" src="eye-closed.png" onclick="togglePasswordVisibility('login-password')">
+                    </div>
+                    
+                    <button type="submit">Se connecter</button>
+                    <p id="login-error-message" style="color: red;"></p>
+                    <p>Pas encore inscrit? <a href="#" onclick="showRegisterForm()">Créez un compte</a></p>
+                </form>
+            </div>
+            <div id="register-form" style="display: none;">
+                <h2>Créer un compte</h2>
+                <form onsubmit="return registerUser()">
+                    <label for="register-username">Nom d'utilisateur:</label>
+                    <input type="text" id="register-username" required>
+                    
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" required>
+                    
+                    <label for="register-password">Mot de passe:</label>
+                    <div class="password-container">
+                        <input type="password" id="register-password" required>
+                        <img id="register-password-eye" class="eye" src="eye-closed.png" onclick="togglePasswordVisibility('register-password')">
+                    </div>
+                    
+                    <button type="submit">S'inscrire</button>
+                    <p id="register-error-message" style="color: red;"></p>
+                    <p>Déjà inscrit? <a href="#" onclick="showLoginForm()">Connectez-vous</a></p>
+                </form>
+            </div>
+            <div id="profile-settings" class="hidden">
+                <h2>Personnaliser le profil</h2>
+                <div class="profile-pic-container">
+                    <img id="profile-pic" class="profile-pic" src="default-profile.png" alt="Photo de profil">
+                    <input type="file" id="profile-pic-upload" class="profile-pic-upload" accept="image/*" onchange="updateProfilePic()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Enzo Deremy. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

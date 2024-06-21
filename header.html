@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Enzo Deremy</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function toggleForm() {
+            var overlay = document.getElementById('overlay');
+            if (overlay.style.display === 'none' || overlay.style.display === '') {
+                overlay.style.display = 'flex';
+            } else {
+                overlay.style.display = 'none';
+            }
+        }
+
+        function showRegisterForm() {
+            var loginForm = document.getElementById('login-form');
+            var registerForm = document.getElementById('register-form');
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+        }
+
+        function showLoginForm() {
+            var loginForm = document.getElementById('login-form');
+            var registerForm = document.getElementById('register-form');
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+        }
+
+        function togglePasswordVisibility(id) {
+            var passwordInput = document.getElementById(id);
+            var eyeIcon = document.getElementById(id + '-eye');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 18.328a9.554 9.554 0 0 1-3.232.672 9.554 9.554 0 0 1-3.232-.672C4.80558 16.9265 1.70914 13.853 1.5 12c.20914-1.853 3.30558-4.9265 7.268 5.328zM12 12.5a3.5 3.5 0 0 1 0-7 3.5 3.5 0 0 1 0 7z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5c-4.69442 0-8.79086 2.87335-10.5 7.5 1.70914 4.62665 5.80558 7.5 10.5 7.5 4.69442 0 8.79086-2.87335 10.5-7.5-1.70914-4.62665-5.80558-7.5-10.5-7.5z" />
+                    </svg>`;
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 18.328a9.554 9.554 0 0 1-3.232.672 9.554 9.554 0 0 1-3.232-.672C4.80558 16.9265 1.70914 13.853 1.5 12c.20914-1.853 3.30558-4.9265 7.268 5.328zM12 12.5a3.5 3.5 0 0 1 0-7 3.5 3.5 0 0 1 0 7z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5c-4.69442 0-8.79086 2.87335-10.5 7.5 1.70914 4.62665 5.80558 7.5 10.5 7.5 4.69442 0 8.79086-2.87335 10.5-7.5-1.70914-4.62665-5.80558-7.5-10.5-7.5z" />
+                    </svg>`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À Propos</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+
+            </ul>
+        </nav>
+        <h1>Bienvenue sur le site d'Enzo Deremy</h1>
+        <button id="toggle-button" onclick="toggleForm()">Connexion/Inscription</button>
+    </header>
+    <div id="overlay" onclick="toggleForm()">
+        <div id="form-container" onclick="event.stopPropagation()">
+            <div id="login-form">
+                <h2>Se connecter</h2>
+                <form action="login.php" method="post">
+                    <label for="login-username">Nom d'utilisateur:</label>
+                    <input type="text" id="login-username" name="username" required>
+                    
+                    <label for="login-password">Mot de passe:</label>
+                    <div class="password-container">
+                        <input type="password" id="login-password" name="password" required>
+                        <span id="login-password-eye" class="eye" onclick="togglePasswordVisibility('login-password')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 18.328a9.554 9.554 0 0 1-3.232.672 9.554 9.554 0 0 1-3.232-.672C4.80558 16.9265 1.70914 13.853 1.5 12c.20914-1.853 3.30558-4.9265 7.268 5.328zM12 12.5a3.5 3.5 0 0 1 0-7 3.5 3.5 0 0 1 0 7z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5c-4.69442 0-8.79086 2.87335-10.5 7.5 1.70914 4.62665 5.80558 7.5 10.5 7.5 4.69442 0 8.79086-2.87335 10.5-7.5-1.70914-4.62665-5.80558-7.5-10.5-7.5z" />
+                            </svg>
+                        </span>
+                    </div>
+                    
+                    <button type="submit">Se connecter</button>
+                    <p>Pas encore inscrit? <a href="#" onclick="showRegisterForm()">Créez un compte</a></p>
+                </form>
+            </div>
+            <div id="register-form" style="display: none;">
+                <h2>Créer un compte</h2>
+                <form action="register.php" method="post">
+                    <label for="register-username">Nom d'utilisateur:</label>
+                    <input type="text" id="register-username" name="username" required>
+                    
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" name="email" required>
+                    
+                    <label for="register-password">Mot de passe:</label>
+                    <div class="password-container">
+                        <input type="password" id="register-password" name="password" required>
+                        <span id="register-password-eye" class="eye" onclick="togglePasswordVisibility('register-password')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 18.328a9.554 9.554 0 0 1-3.232.672 9.554 9.554 0 0 1-3.232-.672C4.80558 16.9265 1.70914 13.853 1.5 12c.20914-1.853 3.30558-4.9265 7.268 5.328zM12 12.5a3.5 3.5 0 0 1 0-7 3.5 3.5 0 0 1 0 7z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5c-4.69442 0-8.79086 2.87335-10.5 7.5 1.70914 4.62665 5.80558 7.5 10.5 7.5 4.69442 0 8.79086-2.87335 10.5-7.5-1.70914-4.62665-5.80558-7.5-10.5-7.5z" />
+                            </svg>
+                        </span>
+                    </div>
+                    
+                    <button type="submit">S'inscrire</button>
+                    <p>Déjà inscrit? <a href="#" onclick="showLoginForm()">Connectez-vous</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

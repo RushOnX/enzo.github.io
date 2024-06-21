@@ -1,0 +1,290 @@
+const secretKey = 'bXktc2VjcmV0LWtleQ=='; // Change this to a securely generated key
+const webhookURL = 'https://discord.com/api/webhooks/1253724037377429566/BFOuOmVonPhTGSitx6zQaoW9Zr6VJW3gv-65wrR7aMug8hP10zKQoKPgdSroiuotr-BJ';
+
+function encrypt(data) {
+    return CryptoJS.AES.encrypt(data, CryptoJS.enc.Utf8.parse(secretKey), { mode: CryptoJS.mode.ECB }).toString();
+}
+
+function decrypt(data) {
+    const bytes = CryptoJS.AES.decrypt(data, CryptoJS.enc.Utf8.parse(secretKey), { mode: CryptoJS.mode.ECB });
+    return bytes.toString(CryptoJS.enc.Utf8);
+}
+
+function toggleForm() {
+    var overlay = document.getElementById('overlay');
+    if (overlay.style.display === 'none' || overlay.style.display === '') {
+        overlay.style.display = 'flex';
+    } else {
+        overlay.style.display = 'none';
+    }
+}
+
+function showRegisterForm() {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'block';
+    document.getElementById('profile-settings').classList.add('hidden');
+}
+
+function showLoginForm() {
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('profile-settings').classList.add('hidden');
+}
+
+function togglePasswordVisibility(id) {
+    const passwordInput = document.getElementById(id);
+    const eyeIcon = document.getElementById(id + '-eye');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.src = 'eye-open.png';
+    } else {
+        passwordInput.type = 'password';
+        eyeIcon.src = 'eye-closed.png';
+    }
+}
+
+function validateLogin() {
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+    const errorMessage = document.getElementById('login-error-message');
+    
+    const users = JSON.parse(localStorage.getItem('users')) || {};
+    if (users[username] && decrypt(users[username].password) === password) {
+        localStorage.setItem('currentUser', username);
+        alert('Connexion réussie');
+        toggleForm();
+        showProfileSection();
+        return false; // Empêche la soumission réelle du formulaire
+    } else {
+        errorMessage.textContent = 'Nom d\'utilisateur ou mot de passe incorrect';
+        return false; // Empêche la soumission réelle du formulaire
+    }
+}
+
+function registerUser() {
+    const username = document.getElementById('register-username').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const errorMessage = document.getElementById('register-error-message');
+    
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+    if (users[username]) {
+        errorMessage.textContent = 'Nom d\'utilisateur déjà pris';
+        return false; // Empêche la soumission réelle du formulaire
+    } else {
+        users[username] = { email: encrypt(email), password: encrypt(password), profilePic: 'default-profile.png' };
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('Inscription réussie');
+        showLoginForm();
+        return false; // Empêche la soumission réelle du formulaire
+    }
+}
+
+function sendChatMessage() {
+    const chatInput = document.getElementById('chat-input').value;
+    const currentUser = localStorage.getItem('currentUser');
+    const users = JSON.parse(localStorage.getItem('users'));
+
+    if (!currentUser || !users[currentUser]) {
+        alert('Vous devez être connecté pour envoyer des messages.');
+        return false;
+    }
+
+    const chatMessage = {
+        user: currentUser,
+        message: chatInput,
+        timestamp: new Date().toISOString()
+    };
+
+    const payload = {
+        content: `${chatMessage.user}: ${chatMessage.message}`
+    };
+
+    fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => {
+        if (response.ok) {
+            let chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+            chatMessages.push(chatMessage);
+            localStorage.setItem('chatMessages', JSON.stringify(chatMessages));
+            loadChatMessages();
+            document.getElementById('chat-input').value = '';
+        } else {
+            alert('Erreur lors de l\'envoi du message.');
+        }
+    })
+    .catch(error => {
+        alert('Erreur lors de l\'envoi du message.');
+    });
+
+    return false; // Empêche la soumission réelle du formulaire
+}
+
+function loadChatMessages() {
+    const chatMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    const chatMessagesDiv = document.getElementById('chat-messages');
+    chatMessagesDiv.innerHTML = ''; // Clear previous messages
+
+    chatMessages.forEach(msg => {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message');
+        messageDiv.innerHTML = `<p><strong>${msg.user}:</strong> ${msg.message} <small>${new Date(msg.timestamp).toLocaleTimeString()}</small></p>`;
+        chatMessagesDiv.appendChild(messageDiv);
+    });
+
+    // Scroll to the bottom of the chat window
+    chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+}
+
+function showProfileSection() {
+    const profilePicSmall = document.getElementById('profile-pic-small');
+    const currentUser = localStorage.getItem('currentUser');
+    const users = JSON.parse(localStorage.getItem('users'));
+
+    if (currentUser && users[currentUser]) {
+        profilePicSmall.src = users[currentUser].profilePic;
+        document.getElementById('toggle-button').classList.add('hidden');
+        profilePicSmall.classList.remove('hidden');
+        document.getElementById('overlay').style.display = 'none';
+    }
+}
+
+function updateProfilePic() {
+    const profilePicUpload = document.getElementById('profile-pic-upload');
+    const profilePic = document.getElementById('profile-pic');
+    const profilePicSmall = document.getElementById('profile-pic-small');
+    const currentUser = localStorage.getItem('currentUser');
+    const users = JSON.parse(localStorage.getItem('users'));
+
+    if (profilePicUpload.files && profilePicUpload.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            profilePic.src = e.target.result;
+            profilePicSmall.src = e.target.result;
+            users[currentUser].profilePic = e.target.result;
+            localStorage.setItem('users', JSON.stringify(users));
+        };
+        reader.readAsDataURL(profilePicUpload.files[0]);
+    }
+}
+
+function toggleProfileMenu() {
+    const profileMenu = document.getElementById('profile-menu');
+    if (profileMenu.style.display === 'none' || profileMenu.style.display === '') {
+        profileMenu.style.display = 'block';
+    } else {
+        profileMenu.style.display = 'none';
+    }
+}
+
+function logout() {
+    localStorage.removeItem('currentUser');
+    location.reload();
+}
+
+function deleteAccount() {
+    const currentUser = localStorage.getItem('currentUser');
+    let users = JSON.parse(localStorage.getItem('users'));
+    delete users[currentUser];
+    localStorage.setItem('users', JSON.stringify(users));
+    logout();
+}
+
+function showProfileSettings() {
+    toggleProfileMenu();
+    toggleForm();
+    document.getElementById('profile-settings').classList.remove('hidden');
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'none';
+}
+
+function isLoggedIn() {
+    return localStorage.getItem('currentUser') !== null;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (isLoggedIn()) {
+        showProfileSection();
+        loadChatMessages();
+    }
+    setInterval(loadChatMessages, 5000); // Mettre à jour les messages toutes les 5 secondes
+});
+function toggleForm() {
+    const overlay = document.getElementById('overlay');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const profileSettings = document.getElementById('profile-settings');
+    overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+    profileSettings.style.display = 'none';
+}
+
+function showRegisterForm() {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'block';
+}
+
+function showLoginForm() {
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('login-form').style.display = 'block';
+}
+
+function showProfileSettings() {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('profile-settings').style.display = 'block';
+}
+
+function toggleProfileMenu() {
+    const menu = document.getElementById('profile-menu');
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+function togglePasswordVisibility(fieldId) {
+    const field = document.getElementById(fieldId);
+    const eyeIcon = field.nextElementSibling;
+    if (field.type === 'password') {
+        field.type = 'text';
+        eyeIcon.src = 'eye-open.png';
+    } else {
+        field.type = 'password';
+        eyeIcon.src = 'eye-closed.png';
+    }
+}
+
+function validateLogin() {
+    // Votre logique de validation de connexion ici
+    return false; // Supprimez cette ligne une fois la logique ajoutée
+}
+
+function registerUser() {
+    // Votre logique d'inscription ici
+    return false; // Supprimez cette ligne une fois la logique ajoutée
+}
+
+function updateProfilePic() {
+    const fileInput = document.getElementById('profile-pic-upload');
+    const profilePic = document.getElementById('profile-pic');
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        profilePic.src = e.target.result;
+        document.getElementById('profile-pic-small').src = e.target.result;
+    }
+
+    reader.readAsDataURL(fileInput.files[0]);
+}
+
+function logout() {
+    // Votre logique de déconnexion ici
+}
+
+function deleteAccount() {
+    // Votre logique de suppression de compte ici
+}

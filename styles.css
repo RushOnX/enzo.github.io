@@ -1,0 +1,366 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Style général */
+body {
+    background-color: #121212;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-color: #1f1f1f;
+    color: white;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #e91e63;
+}
+
+/* Bouton de bascule (Connexion/Inscription) */
+#toggle-button {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#toggle-button:hover {
+    background-color: #d81b60;
+}
+
+/* Bouton de profil */
+.profile-pic-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e91e63;
+    cursor: pointer;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #1f1f1f;
+    border: 1px solid #e91e63;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.profile-menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #1f1f1f;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+    border-top: 1px solid #e91e63;
+    transition: background-color 0.3s ease;
+}
+
+.profile-menu button:hover {
+    background-color: #333;
+}
+
+.profile-menu button:first-child {
+    border-top: none;
+}
+
+/* Main content */
+main {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 80px auto 0 auto;
+    text-align: left;
+}
+
+section {
+    margin-bottom: 40px;
+    border-bottom: 2px solid #e91e63;
+    padding-bottom: 20px;
+}
+
+/* Titles */
+h1, h2 {
+    color: #e91e63;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+/* Footer */
+footer {
+    background-color: #1f1f1f;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+}
+
+/* Forms */
+#login-container, #register-container, #form-container {
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #e91e63;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    width: calc(100% - 40px);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+#login-error-message, #register-error-message, #contact-error-message {
+    color: #cf6679;
+    margin-bottom: 20px;
+}
+
+/* Chat Section */
+.chat-window {
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.chat-input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+.chat-submit {
+    padding: 10px 20px;
+    border: none;
+    background-color: #e91e63;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-submit:hover {
+    background-color: #d81b60;
+}
+
+/* Call to Action Buttons */
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.cta-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #e91e63;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #d81b60;
+}
+
+/* Overlay */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Profile Picture */
+.profile-pic-container {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e91e63;
+}
+
+.profile-pic-upload {
+    display: block;
+    margin: 10px auto;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
+    nav ul li a {
+        display: block;
+        width: 100%;
+        padding: 10px;
+    }
+
+    #toggle-button, .profile-pic-small {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Enzo Deremy</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <a href="index.html" class="logo"><img src="logo.png" alt="Logo ED" class="logo-img"></a>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À Propos</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="messages.html">Messages</a></li>
+                </ul>
+                <button id="toggle-button" onclick="toggleForm()">Connexion/Inscription</button>
+                <img id="profile-pic-small" class="profile-pic-small hidden" src="default-profile.png" alt="Photo de profil" onclick="toggleProfileMenu()">
+                <div id="profile-menu" class="profile-menu">
+                    <button onclick="showProfileSettings()">Personnaliser le profil</button>
+                    <button onclick="logout()">Déconnexion</button>
+                    <button onclick="deleteAccount()">Supprimer le compte</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="portfolio">
+            <h1>Mon Portfolio</h1>
+
+            <h2>Projet 1 : Shadow Esport</h2>
+            <p><strong>Rôle :</strong> Président</p>
+            <p><strong>Objectif :</strong> Promouvoir le sport électronique, encourager la compétition dans un environnement sain et équilibré, développer les compétences et talents individuels dans les jeux vidéo, favoriser l'esprit d'équipe et la collaboration entre joueurs, organiser des événements et tournois esportifs, représenter la passion et l'engagement envers l'esport au niveau local, national et international ; la vente de produits dérivés afin de financer l'association.</p>
+            <p><strong>Étapes principales :</strong> Commencez de rien pour arriver au plus haut.</p>
+            <p><strong>Résultats :</strong> Il est encore en construction de jour en jour.</p>
+            <p><strong>Liens :</strong></p>
+            <ul>
+                <li><a href="https://www.shadowesport.fr" target="_blank">Site Web</a></li>
+                <li><a href="https://www.tiktok.com/@shadowassociatif" target="_blank">TikTok</a></li>
+                <li><a href="https://www.twitch.tv/shadowassociatif" target="_blank">Twitch</a></li>
+                <li><a href="https://www.youtube.com/channel/UCzF4r27qWvG6Nxf6n_mGckg" target="_blank">YouTube</a></li>
+                <li><a href="https://twitter.com/shadowasso" target="_blank">Twitter (X)</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61558061473913" target="_blank">Facebook</a></li>
+                <li><a href="https://taplink.cc/shadowesport" target="_blank">Taplink</a></li>
+            </ul>
+
+            <h2>Projet 2 : The Shadow</h2>
+            <p><strong>Rôle :</strong> Créateur</p>
+            <p><strong>Objectif :</strong> Un bar associatif</p>
+            <p><strong>Étapes principales :</strong> Projet de Bar Geek Associatif dans l'Oise</p>
+            <p><strong>Concept :</strong></p>
+            <ul>
+                <li>Un bar associatif dédié aux passionnés de jeux vidéo et de culture geek.</li>
+                <li>Ambiance conviviale et inclusive, ouverte à tous les âges.</li>
+                <li>Espace de jeux varié avec des PC gamers, des consoles, et des jeux de société.</li>
+            </ul>
+            <p><strong>Objectifs :</strong></p>
+            <ul>
+                <li>Créer un lieu de rencontre et de socialisation pour les geeks et les gamers.</li>
+                <li>Promouvoir les jeux vidéo et la culture geek dans la région.</li>
+                <li>Offrir un espace sûr et sans alcool pour les jeunes.</li>
+            </ul>
+            <p><strong>Aménagement :</strong></p>
+            <ul>
+                <li>Espace PC Gamers : 3 PC gamers haut de gamme avec chaises ergonomiques, installation de jeux populaires et compétitifs (Rocket League, Fortnite, etc.).</li>
+                <li>Espace Consoles : Une sélection de consoles (PS5, Xbox, Nintendo Switch) avec grand écran TV pour les sessions de jeu en groupe.</li>
+                <li>Espace Détente et Jeux : Un flipper pour les amateurs de jeux rétro, un billard et un baby-foot pour les moments de détente, une bibliothèque de jeux de société.</li>
+                <li>Bar Sans Alcool : Large choix de boissons non alcoolisées (sodas, smoothies, mocktails) et petites collations (chips, bonbons, sandwiches).</li>
+            </ul>
+            <p><strong>Activités et Événements :</strong></p>
+            <ul>
+                <li>Tournois de jeux vidéo : Organisation régulière de tournois pour différents jeux avec des récompenses pour les gagnants.</li>
+                <li>Soirées thématiques : Soirées à thème (soirée rétro gaming, soirées cosplay, etc.).</li>
+                <li>Ateliers et conférences : Inviter des experts pour parler de sujets liés aux jeux vidéo et à la culture geek.</li>
+                <li>Événements communautaires : Soirées jeux de société, marathons de jeux, etc.</li>
+            </ul>
+            <p><strong>Budget Estimatif :</strong></p>
+            <ul>
+                <li>Aménagement : PC gamers (3x 1500€) : 4500€, Consoles et accessoires : 2000 €, Billard et baby-foot : 1200 €, Meubles et décoration : 2000 €, Écrans TV et systèmes audio : 2500 €.</li>
+                <li>Fonctionnement : Loyer : ? €/mois, Électricité et internet : ? €/mois, Salaires : ? €/mois, Boissons et collations : ? €/mois.</li>
+                <li>Événements et Activités : Budget promotionnel : ? €/an, Récompenses tournois : ? €/an.</li>
+                <li>Total Initial : Aménagement : ? €, Fonctionnement annuel : ? €.</li>
+            </ul>
+            <p><strong>Financement :</strong></p>
+            <ul>
+                <li>Cotisations des membres de l'association.</li>
+                <li>Recherche de subventions locales et régionales.</li>
+                <li>Crowdfunding et partenariats avec des entreprises locales.</li>
+            </ul>
+            <p><strong>Plan de Communication :</strong></p>
+            <ul>
+                <li>Site web et présence sur les réseaux sociaux.</li>
+                <li>Organisation d'une campagne de lancement avec des événements gratuits.</li>
+                <li>Partenariats avec des écoles et des associations locales.</li>
+            </ul>
+
+            <h2>Expérience Professionnelle</h2>
+            <p><strong>Garage Renault Saint Maximin palais de l'automobile</strong></p>
+            <p><strong>Position :</strong> Lycéen (stagiaire)</p>
+            <p><strong>Responsabilités :</strong> Maintenance rapide</p>
+            <p><strong>Compétences développées :</strong> Travail d'équipe, efficacité</p>
+
+            <h2>Compétences Techniques</h2>
+            <p><strong>Langages de programmation, logiciels, outils :</strong> Canva, Pixlr, Movavi Video Editor Plus, Capcut, Word, Paint, Photoshop</p>
+            <p><strong>Certifications ou formations particulières :</strong> Non</p>
+
+            <h2>Compétences Personnelles</h2>
+            <p><strong>Communication :</strong> Utilisée dans l'association Shadow Esport et lors des événements organisés par le village</p>
+            <p><strong>Leadership :</strong> Gestion de l'association Shadow Esport</p>
+            <p><strong>Gestion de projet :</strong> Organisation des événements et des tournois</p>
+            <p><strong>Gestion d'équipe :</strong> Coordination des membres de l'association et des participants aux événements</p>
+
+            <h2>Objectifs Professionnels</h2>
+            <p><strong>À long terme (5-10 ans) :</strong> Être animateur pour les adolescents</p>
+            <p><strong>Type de projets ou d'environnements de travail intéressants :</strong> Des projets concrets</p>
+
+            <h2>Réalisations Notables</h2>
+            <p><strong>Mon association Shadow Esport :</strong> Une réalisation majeure dans le domaine du gaming et de l'esport</p>
+            <p><strong>Récompenses ou mentions spéciales :</strong> Non</p>
+
+            <h2>Témoignages</h2>
+            <p><strong>Clients ou employeurs précédents :</strong> La commune d'Angicourt, la mission locale du clermontois et du liancourtois</p>
+
+            <h2>Intérêts et Hobbies</h2>
+            <p><strong>En dehors du travail :</strong> Informatique, jeux vidéo, animation, sport</p>
+            <p><strong>Influence sur l'approche professionnelle :</strong> La communication et l'animation en général</p>
+        </section>
+    </main>
+
+    <div id="overlay" onclick="toggleForm()">
+        <div id="form-container" onclick="event.stopPropagation()">
+            <div id="login-form">
+                <h2>Se connecter</h2>
+                <form onsubmit="return validateLogin()">
+                    <label for="login-username">Nom d'utilisateur:</label>
+                    <input type="text" id="login-username" required>
+                    
+                    <label for="login-password">Mot de passe:</label>
+                    <div class="password-container">
+                        <input type="password" id="login-password" required>
+                        <img id="login-password-eye" class="eye" src="eye-closed.png" onclick="togglePasswordVisibility('login-password')">
+                    </div>
+                    
+                    <button type="submit">Se connecter</button>
+                    <p id="login-error-message" style="color: red;"></p>
+                    <p>Pas encore inscrit? <a href="#" onclick="showRegisterForm()">Créez un compte</a></p>
+                </form>
+            </div>
+            <div id="register-form" style="display: none;">
+                <h2>Créer un compte</h2>
+                <form onsubmit="return registerUser()">
+                    <label for="register-username">Nom d'utilisateur:</label>
+                    <input type="text" id="register-username" required>
+                    
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" required>
+                    
+                    <label for="register-password">Mot de passe:</label>
+                    <div class="password-container">
+                        <input type="password" id="register-password" required>
+                        <img id="register-password-eye" class="eye" src="eye-closed.png" onclick="togglePasswordVisibility('register-password')">
+                    </div>
+                    
+                    <button type="submit">S'inscrire</button>
+                    <p id="register-error-message" style="color: red;"></p>
+                    <p>Déjà inscrit? <a href="#" onclick="showLoginForm()">Connectez-vous</a></p>
+                </form>
+            </div>
+            <div id="profile-settings" class="hidden">
+                <h2>Personnaliser le profil</h2>
+                <div class="profile-pic-container">
+                    <img id="profile-pic" class="profile-pic" src="default-profile.png" alt="Photo de profil">
+                    <input type="file" id="profile-pic-upload" class="profile-pic-upload" accept="image/*" onchange="updateProfilePic()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Enzo Deremy. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
